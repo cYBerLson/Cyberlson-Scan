@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    """Base configuration class for SecureCheck-NG."""
+    """Base configuration class for Cyberlson-Scan."""
     
     # Flask Security
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key-for-local-only-replace-in-prod')

@@ -8,7 +8,7 @@ csrf = CSRFProtect()
 talisman = Talisman()
 
 def create_app(config_name=None):
-    """Application factory for SecureCheck-NG."""
+    """Application factory for Cyberlson-Scan."""
     if config_name is None:
         config_name = os.environ.get('FLASK_CONFIG', 'default')
 

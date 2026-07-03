@@ -14,6 +14,40 @@ class SecurityReportGenerator:
         buffer = BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=letter)
         styles = getSampleStyleSheet()
+        header_style = ParagraphStyle(
+            "Header",
+            parent=styles["Heading1"],
+            fontSize=26,
+            alignment=1,
+            textColor=colors.HexColor("#111827"),
+            spaceAfter=6,
+        )
+
+        subtitle_style = ParagraphStyle(
+            "Subtitle",
+            parent=styles["Normal"],
+            alignment=1,
+            textColor=colors.HexColor("#6B7280"),
+            spaceAfter=20,
+        )
+
+        section_style = ParagraphStyle(
+            "SectionStyle",
+            parent=styles["Heading2"],
+            fontSize=15,
+            textColor=colors.HexColor("#111827"),
+            spaceBefore=12,
+            spaceAfter=8,
+        )
+
+        summary_style = ParagraphStyle(
+            "Summary",
+            parent=styles["Normal"],
+            fontSize=11,
+            leading=18,
+            textColor=colors.HexColor("#374151"),
+            spaceAfter=18,
+        )
 
         # Custom styles
         title_style = ParagraphStyle(
@@ -34,12 +68,44 @@ class SecurityReportGenerator:
             spaceAfter=10
         )
 
-        # Document elements
+        # ----------------------------
+        # Document Elements
+        # ----------------------------
+
         elements = []
 
-        # Header
-        elements.append(Paragraph("Cyberlson Scan Security Audit Report", title_style))
-        elements.append(Paragraph(f"Generated on: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", styles['Normal']))
+        # Main Header
+        elements.append(
+            Paragraph(
+                "CYBERLSON SCAN",
+                header_style
+            )
+        )
+
+        elements.append(
+            Paragraph(
+                "Cyber Security Defensive Security Audit Toolkit",
+                subtitle_style
+            )
+        )
+
+        elements.append(
+            Paragraph(
+                "Security Audit Report",
+                title_style
+            )
+        )
+
+        elements.append(
+            Paragraph(
+                f"""
+                <b>Generated:</b> {datetime.datetime.now().strftime('%d %B %Y %H:%M:%S')}<br/>
+                <b>Version:</b> 1.0.0
+                """,
+                styles["Normal"]
+            )
+        )
+
         elements.append(Spacer(1, 20))
 
         # Risk Score Section
@@ -75,7 +141,6 @@ class SecurityReportGenerator:
             ["Disk Usage", f"{sys_info.get('disk_usage', 0)}%"],
             ["Boot Time", sys_info.get('boot_time', 'N/A')]
         ]
-
         t = Table(data, colWidths=[150, 300])
         t.setStyle(TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#4F46E5")),

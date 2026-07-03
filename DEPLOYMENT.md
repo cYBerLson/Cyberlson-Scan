@@ -1,10 +1,10 @@
-# SecureCheck-NG Deployment Guide
+# Cyberlson Scan Deployment Guide
 
-This document provides comprehensive instructions for deploying the SecureCheck-NG application in various environments, from local development to production on a Ubuntu Virtual Private Server (VPS) and cloud platforms like Render or Railway.
+This document provides comprehensive instructions for deploying the Cyberlson Scan application in various environments, from local development to production on a Ubuntu Virtual Private Server (VPS) and cloud platforms like Render or Railway.
 
 ## 1. Local Development
 
-Setting up SecureCheck-NG for local development is straightforward and allows for easy testing and feature development.
+Setting up Cyberlson Scan for local development is straightforward and allows for easy testing and feature development.
 
 ### 1.1. Create Virtual Environment
 
@@ -12,10 +12,10 @@ It is highly recommended to use a Python virtual environment to manage project d
 
 ```bash
 # Navigate to the project root directory
-cd /path/to/SecureCheck-NG
+cd /path/to/Cyberlson-Scan
 
 # Create a virtual environment named 'venv'
-python3.11 -m venv venv
+python3 -m venv venv
 
 # Activate the virtual environment
 source venv/bin/activate
@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 ### 1.3. Configure Environment Variables
 
-SecureCheck-NG uses environment variables for sensitive configurations. Create a `.env` file based on the provided example.
+Cyberlson-scan uses environment variables for sensitive configurations. Create a `.env` file based on the provided example.
 
 ```bash
 # Copy the example environment file
@@ -65,7 +65,7 @@ The application will typically be accessible at `http://127.0.0.1:5000`.
 
 ## 2. Production Deployment (Ubuntu VPS)
 
-Deploying SecureCheck-NG to a production Ubuntu VPS involves setting up a robust and secure environment using Gunicorn as a WSGI server and Nginx as a reverse proxy.
+Deploying Cyberlson-Scan to a production Ubuntu VPS involves setting up a robust and secure environment using Gunicorn as a WSGI server and Nginx as a reverse proxy.
 
 ### 2.1. Server Preparation
 
@@ -91,12 +91,12 @@ Clone your project repository and set up the virtual environment on the server.
 ```bash
 # Navigate to a suitable directory, e.g., /var/www/
 cd /var/www/
-sudo git clone https://github.com/your-username/SecureCheck-NG.git
-sudo chown -R your_user:your_user SecureCheck-NG # Change ownership to your user
-cd SecureCheck-NG
+git clone https://github.com/cYBerLson/Cyberlson-Scan.git
+sudo chown -R your_user:your_user Cyberlson-Scan # Change ownership to your user
+cd Cyberlson-Scan
 
 # Create and activate virtual environment
-python3.11 -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 
 # Install dependencies
@@ -105,7 +105,7 @@ pip install -r requirements.txt
 
 ### 2.4. Configure Environment Variables (Production)
 
-Create a `.env` file in the project root (`/var/www/SecureCheck-NG/.env`) with production-ready values. **Crucially, generate a new, strong `SECRET_KEY` and set `FLASK_CONFIG` to `production`.**
+Create a `.env` file in the project root (`/var/www/Cyberlson-Scan/.env`) with production-ready values. **Crucially, generate a new, strong `SECRET_KEY` and set `FLASK_CONFIG` to `production`.**
 
 ```ini
 # .env file content for production
@@ -128,24 +128,24 @@ pip install gunicorn
 Create a systemd service file to manage Gunicorn, ensuring it starts automatically and runs reliably.
 
 ```bash
-sudo nano /etc/systemd/system/securecheck.service
+sudo nano /etc/systemd/system/cyberlson-scan.service
 ```
 
-Add the following content to `securecheck.service`:
+Add the following content to cyberlson-scan.service`:
 
 ```ini
 [Unit]
-Description=Gunicorn instance to serve SecureCheck-NG
+Description=Gunicorn instance to serve Cyberlson Scan
 After=network.target
 
 [Service]
 User=your_user # Replace with your actual username
 Group=www-data
-WorkingDirectory=/var/www/SecureCheck-NG
-Environment="PATH=/var/www/SecureCheck-NG/venv/bin"
+WorkingDirectory=/var/www/Cyberlson-Scan
+Environment="PATH=/var/www/Cyberlson-Scan/venv/bin"
 Environment="FLASK_CONFIG=production"
 Environment="SECRET_KEY=a_very_long_complex_and_unique_secret_key_for_production" # Set your actual secret key here or load from .env
-ExecStart=/var/www/SecureCheck-NG/venv/bin/gunicorn --workers 3 --bind unix:/var/www/SecureCheck-NG/securecheck.sock -m 007 run:app
+ExecStart=/var/www/Cyberlson-Scan/venv/bin/gunicorn --workers 3 --bind unix:/var/www/Cyberlson-Scan/cyberlson-scan.sock -m 007 run:app
 Restart=always
 
 [Install]
@@ -158,14 +158,15 @@ Reload systemd, start the service, and enable it to run on boot:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl start securecheck
-sudo systemctl enable securecheck
+sudo systemctl start cyberlson-scan
+sudo systemctl enable cyberlson-scan
+sudo systemctl status cyberlson-scan
 ```
 
 Check the status:
 
 ```bash
-sudo systemctl status securecheck
+sudo systemctl status cyberlson-scan
 ```
 
 ### 2.7. Configure Nginx Reverse Proxy
@@ -173,7 +174,7 @@ sudo systemctl status securecheck
 Nginx will act as a reverse proxy, handling incoming requests and forwarding them to Gunicorn.
 
 ```bash
-sudo nano /etc/nginx/sites-available/securecheck
+sudo nano /etc/nginx/sites-available/cyberlson-scan
 ```
 
 Add the following Nginx configuration:
@@ -185,7 +186,7 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/var/www/SecureCheck-NG/securecheck.sock;
+        proxy_pass http://unix:/var/www/Cyberlson-Scan/cyberlson.sock;
     }
 }
 ```
@@ -193,7 +194,7 @@ server {
 Create a symbolic link to enable the site and test Nginx configuration:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/securecheck /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/cyberlson-scan /etc/nginx/sites-enabled
 sudo nginx -t
 ```
 
@@ -233,7 +234,7 @@ Cloud platforms like Render and Railway offer simplified deployment for Flask ap
 
 ### 3.1. General Steps
 
-1.  **Connect to Git Repository**: Link your GitHub/GitLab repository containing SecureCheck-NG to your Render/Railway account.
+1.  **Connect to Git Repository**Connect your GitHub repository containing Cyberlson Scan to your Render or Railway account.
 2.  **Build Command**: Specify the command to install dependencies. This usually involves activating a virtual environment and running `pip install -r requirements.txt`.
     *   Example (Render): `pip install -r requirements.txt`
 3.  **Start Command**: Define how your application should be started. For Flask with Gunicorn, this would be:

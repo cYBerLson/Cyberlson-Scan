@@ -75,7 +75,7 @@ def download_report():
 
     response = make_response(pdf_buffer.getvalue())
     response.headers['Content-Type'] = 'application/pdf'
-    filename = f"SecureCheck-NG-Report-{datetime.datetime.now().strftime('%Y%m%d-%H%M')}.pdf"
+    filename = f"Cyberlson-Scan -Report-{datetime.datetime.now().strftime('%Y%m%d-%H%M')}.pdf"
     response.headers['Content-Disposition'] = f'attachment; filename={filename}'
     return response
 

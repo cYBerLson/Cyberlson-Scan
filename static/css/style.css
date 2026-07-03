@@ -1,4 +1,4 @@
-/* style.css - SecureCheck-NG custom overrides */
+/* style.css - Cyberlson-Scan custom overrides */
 
 /* Smooth transitions for hover states */
 body {
@@ -20,6 +20,7 @@ a, button {
 /* Accent gradient for headings */
 .accent-gradient {
   background: linear-gradient(90deg, #4F46E5, #6366F1);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

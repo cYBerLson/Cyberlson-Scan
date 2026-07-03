@@ -1,4 +1,8 @@
 # Cyberlson Scan – Personal Defensive Security Audit Toolkit
+![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-3.x-black.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
 ![Cyberlson Scan Banner](https://via.placeholder.com/1200x400/1a202c/ffffff?text=Cyberlson+Scan+Defensive+Security+Audit+Toolkit)
 ## Project Overview
@@ -172,4 +176,17 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 `python`, `flask`, `cybersecurity`, `security-audit`, `defensive-security`, `devsecops`, `web-application`, `system-monitoring`, `password-security`, `personal-security`, `education`, `mit-license`
 
+---
+
+#  Author
+
+**Abdulmajid Bello**
+
+Founder, **Cyberlson Team Tech**
+
+### Contact
+
+- **GitHub:** https://github.com/cYBerLson
+- **LinkedIn:** https://linkedin.com/in/cyberlsonsc
+- **Email:** cyberlsoncs@gmail.com
 
