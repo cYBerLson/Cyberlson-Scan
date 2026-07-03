@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-10 fade-in">
+    <h1 class="text-4xl font-extrabold accent-gradient mb-4">Open Ports Visibility Check</h1>
+    <p class="text-lg text-slate-400 max-w-2xl">
+        A list of services currently listening for network connections on your local machine.
+    </p>
+</div>
+
+<div class="bg-slate-800 rounded-xl border border-slate-700 card-shadow fade-in overflow-hidden">
+    <div class="px-6 py-4 border-b border-slate-700 flex justify-between items-center bg-slate-800/50">
+        <h2 class="text-xl font-bold text-white">Listening Ports (Localhost Only)</h2>
+        <span class="badge badge-green">Safe Read-Only View</span>
+    </div>
+    
+    <div class="p-0 overflow-x-auto">
+        {% if open_ports and not open_ports.error %}
+        <table class="w-full text-left">
+            <thead class="bg-slate-700/50 text-slate-400 text-xs uppercase tracking-wider">
+                <tr>
+                    <th scope="col" class="px-6 py-4">Port</th>
+                    <th scope="col" class="px-6 py-4">Address</th>
+                    <th scope="col" class="px-6 py-4">Status</th>
+                    <th scope="col" class="px-6 py-4">Process (PID)</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+                {% for port_info in open_ports %}
+                <tr class="hover:bg-slate-700/30 transition-colors">
+                    <td class="px-6 py-4 font-mono text-brand-indigo font-bold">{{ port_info.port }}</td>
+                    <td class="px-6 py-4 font-mono text-slate-300">{{ port_info.address }}</td>
+                    <td class="px-6 py-4">
+                        <span class="badge badge-green">{{ port_info.status }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-col">
+                            <span class="text-white font-medium">{{ port_info.process_name }}</span>
+                            <span class="text-slate-500 text-xs">PID: {{ port_info.pid }}</span>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% elif open_ports.error %}
+        <div class="p-10 text-center">
+            <h3 class="text-xl font-bold text-white mb-2">Access Denied</h3>
+            <p class="text-slate-400 max-w-md mx-auto">
+                {{ open_ports.error }} This typically happens when the application doesn't have sufficient privileges to inspect network connections.
+            </p>
+        </div>
+        {% else %}
+        <div class="p-10 text-center">
+            <p class="text-slate-400">No open ports detected or analysis failed.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-8 bg-brand-indigo/10 border border-brand-indigo/30 rounded-xl p-6 fade-in">
+    <h3 class="text-brand-indigo font-bold mb-2">Educational Insight: What are Open Ports?</h3>
+    <p class="text-slate-300 text-sm leading-relaxed">
+        An open port is a network port that is actively listening for incoming data packets. While many open ports are necessary for system functionality, unnecessary open ports can increase the "attack surface" of your machine. Defensive best practice: close any port that isn't actively required.
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-[60vh] text-center fade-in">
+    <div class="w-32 h-32 bg-slate-800 rounded-full flex items-center justify-center mb-8 border border-slate-700 card-shadow">
+        <span aria-label="Error 404" class="text-4xl font-black text-brand-indigo">404</span>
+    </div>
+    <h1 class="text-4xl font-extrabold accent-gradient mb-4">Resource Not Found</h1>
+    <p class="text-lg text-slate-400 max-w-md mx-auto mb-10">
+        The security module or page you are looking for does not exist or has been moved.
+    </p>
+    <a href="{{ url_for('main.index') }}" class="bg-brand-indigo hover:bg-brand-indigo-light text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-card">
+        Return to Dashboard
+    </a>
+
+    <p class="text-slate-500 text-sm mt-6 italic">
+        In security contexts, a “404 Not Found” response is a safe way to prevent information disclosure about hidden or restricted resources.
+    </p>
+</div>
+{% endblock %}

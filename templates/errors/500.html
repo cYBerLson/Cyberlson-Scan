@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-[60vh] text-center fade-in">
+    <div class="w-32 h-32 bg-red-500/10 rounded-full flex items-center justify-center mb-8 border border-red-500/30 card-shadow">
+        <span aria-label="Error 500" class="text-4xl font-black text-red-500">500</span>
+    </div>
+    <h1 class="text-4xl font-extrabold accent-gradient mb-4">Internal Security Fault</h1>
+    <p class="text-lg text-slate-400 max-w-md mx-auto mb-10">
+        An unexpected error occurred during the security audit process. This has been logged for investigation.
+    </p>
+    <a href="{{ url_for('main.index') }}" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-card border border-slate-600">
+        Return to Dashboard
+    </a>
+
+    <p class="text-slate-500 text-sm mt-6 italic">
+        In security contexts, a “500 Internal Server Error” indicates a safe failure mode — the system encountered an unexpected condition but did not expose sensitive information.
+    </p>
+</div>
+{% endblock %}

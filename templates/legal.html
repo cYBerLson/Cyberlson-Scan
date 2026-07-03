@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-10 fade-in">
+    <h1 class="text-4xl font-extrabold accent-gradient mb-4">Legal & Ethical Notice</h1>
+    <p class="text-lg text-slate-400 max-w-2xl">
+        Important information regarding the use of the SecureCheck-NG Defensive Security Audit Toolkit.
+    </p>
+</div>
+
+<div class="bg-slate-800 rounded-xl border border-slate-700 card-shadow fade-in p-10 prose prose-invert max-w-none">
+    <div class="space-y-10">
+        <section>
+            <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                1. Defensive & Educational Use Only
+            </h2>
+            <p class="text-slate-300 leading-relaxed text-lg">
+                SecureCheck-NG is designed exclusively for <strong>personal defensive auditing</strong> and educational purposes. Its primary goal is to help users understand their own system's security posture and learn about common defensive cybersecurity concepts.
+            </p>
+            <p class="text-slate-300 leading-relaxed mt-4">
+                This tool is <strong>not a penetration testing tool</strong>, nor is it designed for any offensive operations. It does not contain exploit code, malware, or any automated attack scripts.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                2. Prohibition of Unauthorized Use
+            </h2>
+            <p class="text-slate-300 leading-relaxed text-lg">
+                The use of this software for any unauthorized testing, scanning, or access of systems that you do not own or have explicit written permission to test is <strong>strictly prohibited</strong> and may be illegal.
+            </p>
+            <ul class="list-disc list-inside text-slate-400 mt-4 space-y-2">
+                <li>No network-wide scanning or probing</li>
+                <li>No testing of corporate or public infrastructure</li>
+                <li>No use for unauthorized information gathering</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-emerald" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                3. Liability Disclaimer
+            </h2>
+            <p class="text-slate-300 leading-relaxed text-lg">
+                The authors and contributors of SecureCheck-NG provide this software "as-is" without any warranties of any kind. We are not responsible for any damage, data loss, or legal issues that may arise from the use or misuse of this toolkit.
+            </p>
+            <p class="text-slate-300 leading-relaxed mt-4">
+                Users are solely responsible for ensuring their actions comply with all local, state, national, and international laws and regulations.
+            </p>
+        </section>
+    </div>
+</div>
+{% endblock %}

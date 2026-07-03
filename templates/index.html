@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-10 fade-in">
+    <h1 class="text-4xl font-extrabold accent-gradient mb-4">Security Dashboard</h1>
+    <p class="text-lg text-slate-400 max-w-2xl">
+        Welcome to SecureCheck-NG. This toolkit allows you to perform a safe, local-only defensive audit of your system's security posture.
+    </p>
+</div>
+
+<!-- System Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <!-- CPU Usage -->
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 card-shadow fade-in">
+        <h3 class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">CPU Usage</h3>
+        <span class="text-3xl font-bold text-white">{{ system_info.cpu_usage }}%</span>
+        <div class="w-full bg-slate-700 rounded-full h-2 mt-4">
+            <div class="bg-brand-indigo h-2 rounded-full" style="width: {{ system_info.cpu_usage }}%"></div>
+        </div>
+    </div>
+    <!-- Memory Usage -->
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 card-shadow fade-in">
+        <h3 class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">Memory Usage</h3>
+        <span class="text-3xl font-bold text-white">{{ system_info.memory_usage }}%</span>
+        <div class="w-full bg-slate-700 rounded-full h-2 mt-4">
+            <div class="bg-brand-emerald h-2 rounded-full" style="width: {{ system_info.memory_usage }}%"></div>
+        </div>
+    </div>
+    <!-- Disk Usage -->
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 card-shadow fade-in">
+        <h3 class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">Disk Usage</h3>
+        <span class="text-3xl font-bold text-white">{{ system_info.disk_usage }}%</span>
+        <div class="w-full bg-slate-700 rounded-full h-2 mt-4">
+            <div class="bg-brand-amber h-2 rounded-full" style="width: {{ system_info.disk_usage }}%"></div>
+        </div>
+    </div>
+    <!-- OS Platform -->
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 card-shadow fade-in">
+        <h3 class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">OS Platform</h3>
+        <span class="text-xl font-bold text-white">{{ system_info.os }}</span>
+        <p class="text-slate-500 text-xs mt-4">{{ system_info.os_release }}</p>
+    </div>
+</div>
+
+<!-- System Info + Quick Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- System Info Table -->
+    <div class="lg:col-span-2 bg-slate-800 rounded-xl border border-slate-700 card-shadow fade-in overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-white">System Information</h2>
+            <span class="badge badge-green">Safe View</span>
+        </div>
+        <div class="p-6">
+            <table class="w-full text-left">
+                <tbody>
+                    <tr class="border-b border-slate-700">
+                        <td class="py-3 text-slate-400 font-medium">Hostname</td>
+                        <td class="py-3 text-white">{{ system_info.hostname }}</td>
+                    </tr>
+                    <tr class="border-b border-slate-700">
+                        <td class="py-3 text-slate-400 font-medium">OS Version</td>
+                        <td class="py-3 text-white">{{ system_info.os_version }}</td>
+                    </tr>
+                    <tr class="border-b border-slate-700">
+                        <td class="py-3 text-slate-400 font-medium">Boot Time</td>
+                        <td class="py-3 text-white">{{ system_info.boot_time }}</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 text-slate-400 font-medium">Architecture</td>
+                        <td class="py-3 text-white">{{ system_info.os_release }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-slate-800 rounded-xl border border-slate-700 card-shadow fade-in p-6">
+        <h2 class="text-xl font-bold text-white mb-6">Security Quick Actions</h2>
+        <div class="space-y-4">
+            <a href="{{ url_for('main.ports') }}" class="block w-full bg-slate-700 hover:bg-slate-600 p-4 rounded-lg transition-colors border border-slate-600">
+                <p class="text-white font-medium">Check Open Ports</p>
+                <p class="text-slate-400 text-xs">Analyze listening services</p>
+            </a>
+            <a href="{{ url_for('main.password_check') }}" class="block w-full bg-slate-700 hover:bg-slate-600 p-4 rounded-lg transition-colors border border-slate-600">
+                <p class="text-white font-medium">Password Audit</p>
+                <p class="text-slate-400 text-xs">Test password entropy</p>
+            </a>
+            <a href="{{ url_for('main.recommendations') }}" class="block w-full bg-brand-indigo hover:bg-brand-indigo-light p-4 rounded-lg transition-colors border border-brand-indigo">
+                <p class="text-white font-medium">Full Security Report</p>
+                <p class="text-indigo-100 text-xs">Generate rule-based audit</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

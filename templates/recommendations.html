@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4 fade-in">
+    <div>
+        <h1 class="text-4xl font-extrabold accent-gradient mb-4">Security Audit Report</h1>
+        <p class="text-lg text-slate-400 max-w-2xl">
+            A rule-based defensive assessment of your current system security posture.
+        </p>
+    </div>
+    <div class="flex flex-col items-end gap-4">
+        <div class="flex flex-col items-end">
+            <span class="text-slate-500 text-xs font-mono mb-2 uppercase tracking-widest">Report Timestamp</span>
+            <span class="text-brand-indigo font-mono font-bold">{{ timestamp }}</span>
+        </div>
+        <a href="{{ url_for('main.download_report') }}" class="bg-brand-indigo hover:bg-brand-indigo-light text-white font-bold py-2 px-6 rounded-lg transition-colors flex items-center shadow-card border border-brand-indigo">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Download PDF Report
+        </a>
+    </div>
+</div>
+
+<!-- Risk Score Summary -->
+<div class="bg-slate-800 rounded-xl border border-slate-700 card-shadow fade-in p-8 mb-10 overflow-hidden relative">
+    <div class="flex flex-col md:flex-row items-center gap-10">
+        <div class="flex-shrink-0">
+            <div class="w-32 h-32 rounded-full border-8 flex items-center justify-center
+                {% if risk_score == 'Low' %}border-brand-emerald/30 text-brand-emerald
+                {% elif risk_score == 'Medium' %}border-brand-amber/30 text-brand-amber
+                {% else %}border-red-500/30 text-red-500{% endif %}">
+                <span class="text-2xl font-black uppercase">{{ risk_score }}</span>
+            </div>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold text-white mb-2">Overall Risk Level: {{ risk_score }}</h2>
+            <p class="text-slate-400 max-w-xl leading-relaxed">
+                This score is based on a combined analysis of your system's resource usage, open ports, and general defensive posture.  
+                {% if risk_score == 'Low' %}Your system appears to be in a relatively secure state with minimal exposure.{% elif risk_score == 'Medium' %}There are some areas that could be improved to strengthen your security posture.{% else %}Critical security concerns have been identified. Immediate action is recommended.{% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Recommendations -->
+<div class="space-y-6 fade-in">
+    <h2 class="text-2xl font-bold text-white mb-4">Detailed Recommendations</h2>
+    {% if recommendations %}
+        {% for rec in recommendations %}
+        <div class="bg-slate-800 rounded-xl border-l-4 p-6 shadow-card flex items-start gap-6
+            {% if rec.risk_level == 'Low' %}border-brand-indigo
+            {% elif rec.risk_level == 'Medium' %}border-brand-amber
+            {% else %}border-red-500{% endif %}">
+            <div class="flex-shrink-0 mt-1">
+                {% if rec.risk_level == 'Low' %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {% elif rec.risk_level == 'Medium' %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {% endif %}
+            </div>
+            <div class="flex-grow">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-slate-400 text-xs font-bold uppercase tracking-wider">{{ rec.category }}</span>
+                    <span class="badge 
+                        {% if rec.risk_level == 'Low' %}badge-green
+                        {% elif rec.risk_level == 'Medium' %}badge-amber
+                        {% else %}badge-red{% endif %}">
+                        {{ rec.risk_level }} Priority
+                    </span>
+                </div>
+                <p class="text-white text-lg font-medium leading-tight mb-2">{{ rec.recommendation }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="bg-slate-800 rounded-xl border border-slate-700 p-10 text-center card-shadow fade-in">
+            <span class="badge badge-green">Secure State</span>
+            <p class="text-slate-400 mt-4">No specific recommendations at this time. Great job!</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Disclaimer -->
+<div class="mt-12 bg-slate-800/50 border border-slate-700 rounded-xl p-8 text-center fade-in">
+    <h3 class="text-slate-300 font-bold mb-4 uppercase tracking-widest text-sm">Educational Disclaimer</h3>
+    <p class="text-slate-500 text-sm max-w-3xl mx-auto leading-relaxed italic">
+        This report is generated for educational and personal defensive auditing purposes only. The findings are based on rule-based logic and do not constitute a professional security audit or guarantee of system safety. Always follow official security guidelines from your operating system and hardware vendors.
+    </p>
+</div>
+{% endblock %}
