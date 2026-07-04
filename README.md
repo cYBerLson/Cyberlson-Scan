@@ -23,44 +23,89 @@ Cyberlson Scan offers a suite of defensive features to help users understand and
 *   **Generate Security Report**: Creates a downloadable PDF report with a summary risk score, timestamp, and professional formatting.
 *   **Legal & Ethical Notice Page**: Clearly outlines the tool's purpose for personal defensive use only, prohibiting unauthorized testing or network-wide scanning.
 
-## Architecture Diagram (Text-based)
+##  Architecture Overview
 
-```mermaid
-graph TD
-    A[User Browser] -- HTTPS --> B(Nginx Reverse Proxy)
-    B -- HTTP --> C(Gunicorn WSGI Server)
-    C -- Python/Flask --> D[Cyberlson Scan Application]
-    D -- Calls --> E[psutil Library (System Info)]
-    D -- Calls --> F[bcrypt Library (Password Hashing)]
-    D -- Calls --> G[reportlab Library (PDF Generation)]
+Cyberlson Scan follows a modular Flask architecture that separates the user interface, application logic, system analysis, and report generation.
 
-    subgraph Cyberlson Scan Application (Flask)
-        D1[app/__init__.py (App Factory, Talisman, CSRF)]
-        D2[app/routes.py (URL Routing, View Logic)]
-        D3[app/security.py (Password Analysis, Input Sanitization)]
-        D4[app/analyzer.py (System Metrics, Port/Process Analysis)]
-        D5[app/recommendations.py (Rule-based Suggestions)]
-        D6[app/report.py (PDF Report Generation Logic)]
-        D7[config.py (Configuration Management)]
-    end
+```text
+                          +----------------------+
+                          |    User Browser      |
+                          +----------+-----------+
+                                     |
+                                  HTTPS
+                                     |
+                          +----------v-----------+
+                          |   Nginx (Optional)   |
+                          +----------+-----------+
+                                     |
+                                 Gunicorn
+                                     |
+                          +----------v-----------+
+                          |  Cyberlson Scan App  |
+                          |       (Flask)        |
+                          +----------+-----------+
+                                     |
+          +--------------------------+--------------------------+
+          |                          |                          |
+          |                          |                          |
++---------v---------+      +---------v---------+      +---------v---------+
+|   security.py     |      |   analyzer.py     |      | recommendations.py|
+| Password Analysis |      | System Analysis   |      | Risk Suggestions  |
++---------+---------+      +---------+---------+      +---------+---------+
+          |                          |                          |
+          +--------------------------+--------------------------+
+                                     |
+                          +----------v-----------+
+                          |     report.py        |
+                          | PDF Report Generator |
+                          +----------+-----------+
+                                     |
+                          +----------v-----------+
+                          |    ReportLab PDF     |
+                          +----------------------+
 
-    subgraph Frontend
-        H[templates/ (Jinja2 HTML Templates)]
-        I[static/ (CSS, JS, Assets)]
-    end
+                    Frontend
+        +--------------------------------------+
+        | templates/ (HTML - Jinja2)           |
+        | static/css                           |
+        | static/js                            |
+        | static/images                        |
+        +--------------------------------------+
 
-    D --> H
-    D --> I
+                 External Libraries
+        +--------------------------------------+
+        | psutil      → System Information      |
+        | bcrypt     → Password Hashing         |
+        | ReportLab  → PDF Report Generation    |
+        +--------------------------------------+
+```
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbd,stroke:#333,stroke-width:2px
-    style E fill:#dbf,stroke:#333,stroke-width:2px
-    style F fill:#dbf,stroke:#333,stroke-width:2px
-    style G fill:#dbf,stroke:#333,stroke-width:2px
-    style H fill:#fdf,stroke:#333,stroke-width:2px
-    style I fill:#fdf,stroke:#333,stroke-width:2px
+### Project Structure
+
+```text
+Cyberlson-scan/
+│
+├── app/
+│   ├── __init__.py
+│   ├── routes.py
+│   ├── analyzer.py
+│   ├── security.py
+│   ├── recommendations.py
+│   ├── report.py
+│   └── config.py
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── templates/
+│   └── index.html
+│
+├── uploads/
+├── requirements.txt
+├── run.py
+└── README.md
 ```
 
 ## Security Considerations
