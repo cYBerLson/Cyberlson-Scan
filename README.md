@@ -69,7 +69,7 @@ Cyberlson Scan follows a modular Flask architecture that separates the user inte
         | templates/ (HTML - Jinja2)           |
         | static/css                           |
         | static/js                            |
-        | static/images                        |
+        | static/images                         |
         +--------------------------------------+
 
                  External Libraries
@@ -80,34 +80,47 @@ Cyberlson Scan follows a modular Flask architecture that separates the user inte
         +--------------------------------------+
 ```
 
-### Project Structure
+##  Project Structure
 
 ```text
 Cyberlson-scan/
 │
 ├── app/
-│   ├── __init__.py
-│   ├── routes.py
-│   ├── analyzer.py
-│   ├── security.py
-│   ├── recommendations.py
-│   ├── report.py
-│   └── config.py
+│   ├── __init__.py              # Flask application factory
+│   ├── analyzer.py              # System analysis engine
+│   ├── config.py                # Application configuration
+│   ├── recommendations.py       # Security recommendations
+│   ├── report.py                # PDF report generator
+│   ├── routes.py                # Application routes
+│   └── security.py              # Password & security analysis
 │
 ├── static/
 │   ├── css/
-│   ├── js/
-│   └── images/
+│   │   └── style.css
+│   ├── images/
+│   │   ├── banner.png
+│   │   ├── logo.png
+│   │   └── screenshots/
+│   │       ├── home-page.png
+│   │       ├── analysis-dashboard.png
+│   │       ├── recommendations.png
+│   │       └── pdf-report.png
+│   └── js/
 │
 ├── templates/
-│   └── index.html
+│   ├── errors/
+│   ├── index.html
+│   ├── layout.html
+│   ├── legal.html
+│   └── password_check.html
 │
-├── uploads/
-├── requirements.txt
-├── run.py
+├── uploads/                     # Uploaded log files
+│
+├── requirements.txt             # Python dependencies
+├── run.py                       # Application entry point
+├── LICENSE
 └── README.md
 ```
-
 ## Security Considerations
 
 Cyberlson Scan is built with security as a paramount concern, adhering to DevSecOps best practices and OWASP secure coding guidelines. Key security measures include:
@@ -121,17 +134,30 @@ Cyberlson Scan is built with security as a paramount concern, adhering to DevSec
 *   **Error Handling**: Comprehensive exception handling is in place to prevent information leakage and ensure application stability.
 *   **Defensive-Only Design**: The core philosophy ensures no offensive capabilities, network scanning beyond localhost, or any potentially illegal functionalities are included.
 
-## Screenshots Section (Placeholder Descriptions)
+## Application Screenshots
+###  Home Page
 
-*   **Dashboard View**: A clean, modern dashboard displaying real-time CPU, memory, and disk usage, along with essential system information.
-*   **Open Ports List**: A table showing locally open ports, their associated processes, and clear explanations.
-*   **Password Analysis Result**: An interactive display of password strength, entropy, and specific feedback for improvement.
-*   **Security Recommendations**: A categorized list of actionable security recommendations based on system analysis, with risk levels.
-*   **PDF Report Sample**: A professional, downloadable PDF report summarizing the audit findings and recommendations.
+![Home Page](static/images/screenshots/home-page.png)
+
+---
+
+###  Analysis Dashboard
+
+![Analysis Dashboard](static/images/screenshots/analysis-dashboard.png)
+
+---
+
+###  PDF Security Report
+
+![PDF Report](static/images/screenshots/pdf-report.png)
+
+---
+
+###  Security Recommendations
+
+![Recommendations](static/images/screenshots/recommendations.png)
 
 ## Installation Instructions
-
-### Local Development Setup
 
 1.  **Clone the repository (or download the project files):**
     ```bash
@@ -215,7 +241,7 @@ We welcome contributions to Cyberlson Scan! Please follow these steps:
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-## Professional GitHub Project Description (Short)
+## Professional GitHub Project Description 
 
 **Cyberlson-Scan**: is a Flask-based defensive cybersecurity toolkit for local system security auditing. It provides system monitoring, local port visibility, password strength analysis, process inspection, and automated security recommendations while following secure coding and DevSecOps best practices.
 
