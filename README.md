@@ -4,7 +4,9 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 ![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
-![Cyberlson Scan Banner](https://via.placeholder.com/1200x400/1a202c/ffffff?text=Cyberlson+Scan+Defensive+Security+Audit+Toolkit)
+![Cyberlson Scan Banner] <p align="center">
+  <img src="static/images/banner.png" alt="Cyberlson Scan Banner" width="100%">
+</p>
 ## Project Overview
 
 Cyberlson-Scan is a web-based, Flask-powered personal defensive security audit toolkit designed to empower individuals to safely and locally evaluate their own system's security posture. Built with a strong emphasis on secure coding practices and defensive cybersecurity principles, this tool provides insights into system information, open ports, process activity, and password strength, offering actionable recommendations to enhance personal digital security. It is 100% defensive, legal, and educational, explicitly avoiding any offensive capabilities, exploit code, or malware.
